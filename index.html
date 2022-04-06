@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>task1</title>
+</head>
+
+<body>
+    <div class="heder"> 
+        <h1>Calculator</h1>
+    </div>
+    <div class="calculator">
+        <input type="text" class="num1" placeholder="Add first num">
+        <div class="btns">
+            <button class="btn" id="plus" onclick="oper='+' ">+</button>
+            <button class="btn" id="minus" onclick="oper='-'">-</button>
+            <button class="btn" id="times" onclick="oper='*'">*</button>
+            <button class="btn" id="divide" onclick="oper='/'">/</button>
+</div>
+<input type="text" class="num2" placeholder="Add first num" >
+</div>
+<button class="result" id="result" onclick="func()">Calculate</button>
+<script>let oper;
+    function func() {
+        let num1 = Number(document.querySelector(".num1").value)
+        let num2 = Number(document.querySelector(".num2").value)
+        switch (oper) {
+            case '+':
+                result = num1 + num2
+                break
+            
+            case '-':
+                result = num1 - num2
+                break
+    
+            case '*':
+                result = num1 * num2
+                break
+            case '/':
+                result = num1 / num2
+                break
+    
+        }
+        alert("Ответ:" + result);
+    }
+    </script>
+</body>
+
+</html>
