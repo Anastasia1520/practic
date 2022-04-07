@@ -1,21 +1,58 @@
-function func1() {
-    let color = document.getElementById("col").value
-    document.body.style.backgroundColor = `${color}`
-}
-function func2() {
-    let color = document.querySelector(".selector").value
-    
-    document.body.style.backgroundColor = `${color}`
-}
-function func3() {
-    let color = document.body.querySelector(".selector2").value
-    document.body.className = `${color}`
-    document.body.style.backgroundColor = `${document.body.className }`;
-}
-function func4() {
-    let color = document.body.querySelector(".input").value
-    document.body.style.setProperty('--main-color',`${color}`);
-}
-function func5(selectElement) {
-    document.body.style.setProperty('--main-color', `${selectElement.value}`)
+convert();
+function convert() {
+  const name = prompt("Ваше имя?");
+  const secondName = prompt("Ваша фамилия?");
+  const middleName = prompt("Ваше отчество?");
+  const age = prompt("Сколько вам лет?");
+  let gender = confirm("Ваш пол: мужской?");
+  const ageInDay = age * 365;
+  const ageInFive = Number(age) + 5;
+  let err = [];
+
+  if (gender === true) {
+    gender = "Мужской";
+  } else {
+    gender = "Женский";
+  }
+
+  if (gender === "Мужской") {
+    if (age < 60) {
+      pension = "Нет";
+    } else {
+      pension = "Да";
+    }
+  } else {
+    if (age < 55) {
+      pension = "Нет";
+    } else {
+      pension = "Да";
+    }
+  }
+
+  if (secondName == "" || secondName == null) {
+    err += ["Неверная фамилия\n"];
+  }
+
+  if (name == "" || name == null) {
+    err += ["Неверное имя\n"];
+  }
+
+  if (middleName == "" || middleName == null) {
+    err += ["Неверное отчество\n"];
+  }
+  if (isNaN(Number(age)) === true || age === "" || age > 100) {
+    err += ["Неверный возраст\n"];
+  }
+
+  if (err.length === 0) {
+    alert(
+      `Ваше ФИО: ${secondName} ${name} ${middleName}\nВаш возраст в годах: ${age}\nВаш возраст в днях: ${ageInDay}\nЧерез 5 лет вам будет: ${ageInFive}\nВаш пол: ${gender}\nВы на пенсии: ${pension}`
+    );
+  } else {
+    alert(err);
+    reload = confirm("Попробуете еще раз?");
+    if (reload === true) {
+      convert();
+    }
+  }
 }
