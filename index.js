@@ -30,18 +30,18 @@ function convert() {
   }
 
   if (secondName == "" || secondName == null) {
-    err += ["Неверная фамилия\n"];
+    err += ["Вы ввели неверную фамилию\n"];
   }
 
   if (name == "" || name == null) {
-    err += ["Неверное имя\n"];
+    err += ["Вы ввели неверное имя\n"];
   }
 
   if (middleName == "" || middleName == null) {
-    err += ["Неверное отчество\n"];
+    err += ["Вы ввели неверное отчество\n"];
   }
   if (isNaN(Number(age)) === true || age === "" || age > 100) {
-    err += ["Неверный возраст\n"];
+    err += ["Вы ввели неверный возраст\n"];
   }
 
   if (err.length === 0) {
