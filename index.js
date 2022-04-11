@@ -7,13 +7,11 @@ function convert() {
   let gender = confirm("Ваш пол: мужской?");
   const ageInDay = age * 365;
   const ageInFive = Number(age) + 5;
-  let err = [];
+  let err = '';
 
-  if (gender === true) {
-    gender = "Мужской";
-  } else {
-    gender = "Женский";
-  }
+gender = gender ? 'Мужской' : 'Женский'
+  
+
 
   if (gender === "Мужской") {
     if (age < 60) {
@@ -29,28 +27,28 @@ function convert() {
     }
   }
 
-  if (secondName == "" || secondName == null) {
-    err += ["Вы ввели неверную фамилию\n"];
+  if (!secondName) {
+    err += 'Вы ввели неверную фамилию\n'
   }
 
-  if (name == "" || name == null) {
-    err += ["Вы ввели неверное имя\n"];
+  if (!name) {
+    err += 'Вы ввели неверное имя\n'
   }
 
-  if (middleName == "" || middleName == null) {
-    err += ["Вы ввели неверное отчество\n"];
+  if (!middleName) {
+    err += 'Вы ввели неверное отчество\n'
   }
   if (isNaN(Number(age)) === true || age === "" || age > 100) {
-    err += ["Вы ввели неверный возраст\n"];
+    err += 'Вы ввели неверный возраст\n'
   }
 
-  if (err.length === 0) {
+  if (!err.length) {
     alert(
       `Ваше ФИО: ${secondName} ${name} ${middleName}\nВаш возраст в годах: ${age}\nВаш возраст в днях: ${ageInDay}\nЧерез 5 лет вам будет: ${ageInFive}\nВаш пол: ${gender}\nВы на пенсии: ${pension}`
     );
   } else {
     alert(err);
-    reload = confirm("Попробуете еще раз?");
+   const  reload = confirm("Попробуете еще раз?");
     if (reload === true) {
       convert();
     }
