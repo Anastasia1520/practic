@@ -33,10 +33,10 @@ function addButtonClicked() {
   // 1.2. Если же такое название цвета существует, вызывает checkIfColorAdded, чтобы проверить наличие добавляемого цвета выпадающем списке.
   // 1.2.1. Если выпадающий список еще не содержит добавляемое значение, последовательно вызывает функции addColor, chooseColor и setColor, передавая им в качестве входного параметра значение, которое пользователь ввел в текстовое поле.
   // 1.2.2. Если значение уже добавлено, показывает сообщение 'Color has been already added'
-  if (checkIfColorCanBeAdded(htmlElements.input.value) != true) {
+  if (!checkIfColorCanBeAdded(htmlElements.input.value)) {
     alert("There's no such a color")
   } else {
-    if (checkIfColorAdded(htmlElements.input.value) === true) {
+    if (checkIfColorAdded(htmlElements.input.value)) {
       alert('Color has been already added')
     } else {
       addColor(htmlElements.input.value)
@@ -50,7 +50,7 @@ function removeColorClicked() {
   // 1. Проверяет, ввел ли пользователь какой-то текст в текстовое поле
   // 1.1. Если не ввел, показывает сообщение 'Please enter a value first'
   // 1.2. Если ввел, вызвает removeColor, передавая значение текстового поля в качестве входного параметра. После чего вызывает reset.
-  if (htmlElements.input.value === '') {
+  if (!htmlElements.input.value) {
     alert('Please enter a value first')
   } else {
     removeColor(htmlElements.input.value)
@@ -62,7 +62,7 @@ function removeSelectedColorClicked() {
   // 1. Вызывает getSelectedValue, чтобы получить значение выбранного option в выпадающем списке.
   // 1.1. Если значение выбранного option равно 'not selected', показывает сообщение 'Please choose a value to remove'.
   // 1.2. Если же значение выбранного option не равно 'not selected', вызывает removeColor, передавая значение выбранного option в качестве входного параметра.
- if (getSelectedValue() === ' not selected'){
+ if (getSelectedValue() === 'not selected'){
     alert('Please choose a value to remove')
   } else {
     removeColor(getSelectedValue())
