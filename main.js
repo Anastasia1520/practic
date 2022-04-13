@@ -40,4 +40,21 @@ function render() {
   //     <button class="delete-button">X</button>
   //   </div>
   // </div>
+  for (let i=0; i<itemsArray.length; i++) {
+    let div = document.createElement("div");
+    div.className = "item";
+    div.style.backgroundColor = itemsArray[i].bgColor;
+    items.append(div);
+
+    let span = document.createElement("span");
+    span.className = "item-text";
+    span.style.color = itemsArray[i].color;
+    span.textContent =`${itemsArray[i].color}`;
+    div.append(span);
+
+    let btn = document.createElement("button");
+    btn.className = "delete-button";
+    btn.textContent = "X";
+    div.appendChild(btn);
+  }
 }
