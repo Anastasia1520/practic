@@ -8,28 +8,34 @@
   <title>task4</title>
 </head>
 
-<body onload="checkTv(), checkVideo()">
+<body onload="auditorium.checkTv(), auditorium.checkVideo(), auditorium.showSeats()">
   <div class="func1">
     <h1>Furniture</h1>
     <input type="text" placeholder="Add furniture" id="furniture" />
-    <button onclick="addFurniture()">Add</button>
+    <button onclick="auditorium.addFurniture()">Add</button>
     <p id="func1"></p>
     <script src="/index.js"></script>
   </div>
   <div class="func2">
     <h1>Availability of a tv</h1>
-    <input type="checkbox" id="checktv" onclick="checkTv()">
+    <input type="checkbox" id="checktv" onclick="auditorium.checkTv()">
     <p id="tv"></p>
   </div>
   <div class="func3">
     <h1>Availability of a video</h1>
-    <input type="checkbox" id="checkvd" onclick="checkVideo()">
+    <input type="checkbox" id="checkvd" onclick="auditorium.checkVideo()">
     <p id="video"></p>
   </div>
   <div class="func4">
     <h1>Material board</h1>
     <input type="text" id="inputMat">
-    <button onclick="changeMaterialBoard()">Change</button>
+    <button onclick="auditorium.changeMaterialBoard()">Change</button>
+  </div>
+  <div class="func5">
+    <h1>Seats</h1>
+    <h3 id="countSeats"></h3>
+    <button onclick="auditorium.addSeats()">+</button>
+    <button onclick="auditorium.removeSeats()">-</button>
   </div>
 </body>
 
