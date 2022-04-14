@@ -14,10 +14,10 @@ let auditorium = {
     document.getElementById("func1").textContent = this.furniture;
   },
   checkTv: () => {
-    this.tv = document.getElementById("checktv").checked
+    auditorium.tv = document.getElementById("checktv").checked
       ? "Avaible"
       : "Not avaible";
-    document.getElementById("tv").textContent = this.tv;
+    document.getElementById("tv").textContent = auditorium.tv;
   },
   checkVideo() {
     this.video = document.getElementById("checkvd").checked
@@ -35,8 +35,7 @@ let auditorium = {
     document.getElementById("countSeats").textContent = --this.seats;
   },
 };
-
 auditorium.changeMaterialBoard = function () {
-  auditorium.board.material = document.getElementById("inputMat").value;
-  alert(`Материал доски: ${auditorium.board.material}`);
+  this.board.material = document.getElementById("inputMat").value;
+  alert(`Материал доски: ${this.board.material}`);
 };
