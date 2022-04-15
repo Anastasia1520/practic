@@ -28,10 +28,11 @@ function init() {
 init();
 
 function render() {
-  for (let i = 0; i < itemsArray.length; i++) {
+    for (let i = 0; i < itemsArray.length; i++) {
     let div = document.createElement("div");
     div.className = "item";
     div.style.backgroundColor = itemsArray[i].bgColor;
+    div.id = itemsArray[i].color;
     items.append(div);
 
     let span = document.createElement("span");
@@ -52,6 +53,9 @@ function removeItem() {
 
   btns.forEach((btn) => btn.addEventListener("click", removeItems));
   function removeItems() {
+    let colors = itemsArray.map((el) => el.color);
+    let index = colors.indexOf(`${this.parentNode.id}`);
+    itemsArray.splice(index, 1);
     this.parentNode.remove();
   }
 }
