@@ -23,6 +23,7 @@ function init() {
 
   render();
   removeItem();
+  selectItem();
 }
 
 init();
@@ -51,7 +52,29 @@ function removeItem() {
   let btns = document.querySelectorAll(".delete-button");
 
   btns.forEach((btn) => btn.addEventListener("click", removeItems));
+  btns.forEach((btn) => btn.removeEventListener("click", selectItem));
   function removeItems() {
+    let colors = itemsArray.map((el) => el.color);
+    let index = colors.indexOf(`${this.parentNode.id}`);
+    itemsArray.splice(index, 1);
     this.parentNode.remove();
+  }
+}
+
+function selectItem() {
+  let item = document.querySelectorAll(".item");
+  let btns = document.querySelectorAll(".delete-button");
+
+  item.forEach((items) => items.addEventListener("click", selectItems));
+  btns.forEach((btn) =>
+    btn.addEventListener("click", function selectBtn(event) {
+      event.stopPropagation();
+    })
+  );
+  function selectItems() {
+    document.querySelector(".header").style.backgroundColor =
+      this.style.backgroundColor;
+    document.querySelector(".header").style.color =
+      this.firstChild.style.color;
   }
 }
