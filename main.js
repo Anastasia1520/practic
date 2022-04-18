@@ -18,7 +18,7 @@ function init() {
     textColorInput: document.querySelector("input.text-color-input"),
     addButton: document.querySelector("button.add-button"),
     items: document.querySelector("div.items"),
-    removeButton: document.querySelectorAll("button.delete-button"),
+    removeButton: document.querySelectorAll(".delete-button"),
   };
 
   render();
@@ -33,7 +33,7 @@ function render() {
     let div = document.createElement("div");
     div.className = "item";
     div.style.backgroundColor = itemsArray[i].bgColor;
-    items.append(div);
+    itms.append(div);
 
     let span = document.createElement("span");
     span.className = "item-text";
@@ -52,8 +52,10 @@ function removeItem() {
   let btns = document.querySelectorAll(".delete-button");
 
   btns.forEach((btn) => btn.addEventListener("click", removeItems));
-  btns.forEach((btn) => btn.removeEventListener("click", selectItem));
-  function removeItems() {
+
+  
+  function removeItems(event) {
+    event.stopPropagation();
     let colors = itemsArray.map((el) => el.color);
     let index = colors.indexOf(`${this.parentNode.id}`);
     itemsArray.splice(index, 1);
@@ -63,14 +65,9 @@ function removeItem() {
 
 function selectItem() {
   let item = document.querySelectorAll(".item");
-  let btns = document.querySelectorAll(".delete-button");
 
   item.forEach((items) => items.addEventListener("click", selectItems));
-  btns.forEach((btn) =>
-    btn.addEventListener("click", function selectBtn(event) {
-      event.stopPropagation();
-    })
-  );
+  
   function selectItems() {
     document.querySelector(".header").style.backgroundColor =
       this.style.backgroundColor;
