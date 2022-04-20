@@ -1,154 +1,117 @@
-let htmlElements;
 
-let itemsArray = [
-  { color: "white", bgColor: "blue" },
-  {
-    color: "black",
-    bgColor: "yellow",
-  },
-  {
-    color: "green",
-    bgColor: "whitesmoke",
-  },
-];
+const htmlElements = {};
+htmlElements.startBtn = document.querySelector('.container .buttons button.start');
+htmlElements.stopBtn = document.querySelector('.container .buttons button.stop');
+htmlElements.resetBtn = document.querySelector('.container .buttons button.reset');
+htmlElements.clock = document.querySelector('.container .links .clock');
+htmlElements.stopwatch = document.querySelector('.container .links .stopwatch');
+htmlElements.timer = document.querySelector('.container .links .timer');
+htmlElements.output = document.querySelector('.container .output');
+htmlElements.getstopwatch = document.querySelector(".container .getstopwatch");
+htmlElements.millisecond = document.querySelector(".millisecond");
+htmlElements.second = document.querySelector(".second");
+htmlElements.minute = document.querySelector(".minute");
+htmlElements.hour = document.querySelector(".hour");
 
-function init() {
-  htmlElements = {
-    bgColorInput: document.querySelector("input.bg-color-input"),
-    textColorInput: document.querySelector("input.text-color-input"),
-    addButton: document.querySelector("button.add-button"),
-    items: document.querySelector("div.items"),
-  };
-
-  render();
-  removeItem();
-  selectItem();
-}
-init();
-
-htmlElements.bgColorInput.onblur = function () {
-  if (checkIfColorCanBeAdded(this.value) != true) {
-    this.classList.add("error");
-  } else {
-    this.classList.remove("error");
-  }
-};
-
-htmlElements.textColorInput.onblur = function () {
-  if (checkIfColorCanBeAdded(this.value) != true) {
-    this.classList.add("error");
-  } else {
-    this.classList.remove("error");
-  }
-};
-
-htmlElements.addButton.addEventListener("click", buttonValid);
-
-function buttonValid() {
-  let colors = itemsArray.map((el) => el.color);
-  let bgColors = itemsArray.map((el) => el.bgColor);
-  if (
-    colors.includes(`${htmlElements.textColorInput.value}`) ||
-    htmlElements.textColorInput.value === "" ||
-    bgColors.includes(`${htmlElements.bgColorInput.value}`) ||
-    htmlElements.bgColorInput.value === ""
-  ) {
-    alert("Такой цвет уже есть");
-    htmlElements.bgColorInput.classList.add("error");
-    htmlElements.textColorInput.classList.add("error");
-  } else {
-    if (
-      checkIfColorCanBeAdded(`${htmlElements.textColorInput.value}`) != true ||
-      checkIfColorCanBeAdded(`${htmlElements.bgColorInput.value}`) != true
-    ) {
-      alert("Такого цвета не существует");
-    } else {
-      addItem();
-    }
-  }
-}
-
-function checkIfColorCanBeAdded(color) {
-  if (color.indexOf("rgb") > -1 || color === "") {
-    return false;
-  }
-
-  let div = document.createElement("div");
-  div.style.backgroundColor = color;
-  let colorIsSetCorrectly = div.style.backgroundColor === color;
-  return colorIsSetCorrectly;
-}
-
-
-function render() {
-  for (let i = 0; i < itemsArray.length; i++) {
-    let div = document.createElement("div");
-    div.className = "item";
-    div.style.backgroundColor = itemsArray[i].bgColor;
-    div.id = itemsArray[i].color;
-    itms.append(div);
-
-    let span = document.createElement("span");
-    span.className = "item-text";
-    span.style.color = itemsArray[i].color;
-    span.textContent = `${itemsArray[i].color}`;
-    div.append(span);
-
-    let btn = document.createElement("button");
-    btn.className = "delete-button";
-    btn.textContent = "X";
-    div.appendChild(btn);
-  }
-}
-
-function removeItem() {
-  let btns = document.querySelectorAll(".delete-button");
-  btns.forEach((btn) => btn.addEventListener("click", removeItems));
-}
-function removeItems(event) {
-  let colors = itemsArray.map((el) => el.color);
-  let index = colors.indexOf(`${this.parentNode.id}`);
-  event.stopPropagation();
-
-  itemsArray.splice(index, 1);
-  this.parentNode.remove();
-}
-
-function selectItem() {
-  let item = document.querySelectorAll(".item");
-  item.forEach((items) => items.addEventListener("click", selectItems));
-}
-  function selectItems() {
-    document.querySelector(".header").style.backgroundColor =
-      this.style.backgroundColor;
-    document.querySelector(".header").style.color =
-      this.firstChild.style.color;
-  }
-
-function addItem() {
-  itemsArray.push({
-    color: htmlElements.textColorInput.value,
-    bgColor: htmlElements.bgColorInput.value,
+htmlElements.startBtn.addEventListener("click", () => {
+    clearInterval(interval);
+    interval = setInterval(startStopwatch, 10);
   });
 
-  lastChild = itemsArray.slice(-1);
-  let div = document.createElement("div");
-  div.className = "item";
-  div.id = lastChild[0].color
-  div.style.backgroundColor = lastChild[0].bgColor;
-  itms.append(div);
+  htmlElements.stopBtn.addEventListener("click", () => {
+    clearInterval(interval);
+  });
 
-  let span = document.createElement("span");
-  span.className = "item-text";
-  span.style.color = lastChild[0].color;
-  span.textContent = `${lastChild[0].color}`;
-  div.append(span);
+  htmlElements.resetBtn.addEventListener("click", () => {
+    clearInterval(interval);
+    hour = 00;
+    minute = 00;
+    second = 00;
+    millisecond = 00;
+    htmlElements.hour.innerText = "00";
+    htmlElements.minute.innerText = "00";
+    htmlElements.second.innerText = "00";
+    htmlElements.millisecond.innerText = "00";
+  });
 
-  let btn = document.createElement("button");
-  btn.className = "delete-button";
-  btn.textContent = "X";
-  div.appendChild(btn);
-  removeItem()
-  selectItem()
+  htmlElements.clock.addEventListener("click", function () {
+    clockInterval = setInterval(getClock, 1000);
+    this.classList.add("selected");
+    htmlElements.output.classList.remove("hidden");
+    htmlElements.stopwatch.classList.remove("selected");
+    htmlElements.getstopwatch.classList.add("hidden");
+    htmlElements.timer.classList.remove("selected");
+  });
 
+  htmlElements.stopwatch.addEventListener("click", function () {
+    clearInterval(clockInterval);
+    this.classList.add("selected");
+    htmlElements.getstopwatch.classList.remove("hidden");
+    htmlElements.clock.classList.remove("selected");
+    htmlElements.output.classList.add("hidden");
+    htmlElements.timer.classList.remove("selected");
+  });
+
+  htmlElements.timer.addEventListener("click", function () {
+    this.classList.add("selected");
+    htmlElements.clock.classList.remove("selected");
+    htmlElements.output.classList.add("hidden");
+    htmlElements.stopwatch.classList.remove("selected");
+    htmlElements.getstopwatch.classList.add("hidden");
+  });
+
+  let clockInterval = setInterval(getClock, 1000);
+
+function getClock() {
+  const date = new Date();
+
+  let hours = date.getHours();
+  if (hours < 10) hours = `0${hours}`;
+
+  let minutes = date.getMinutes();
+  if (minutes < 10) minutes = `0${minutes}`;
+
+  let seconds = date.getSeconds();
+  if (seconds < 10) seconds = `0${seconds}`;
+
+  htmlElements.output.textContent = `${hours}:${minutes}:${seconds}`;
 }
+
+let hour = 00,
+  minute = 00,
+  second = 00,
+  millisecond = 00,
+  interval;
+
+function startStopwatch() {
+
+
+    millisecond++;
+    htmlElements.millisecond.innerText =
+      millisecond < 9 ? `0${millisecond}` : millisecond;
+    if (millisecond > 99) {
+      second++;
+      htmlElements.second.innerText = `0${second}`;
+      millisecond = 0;
+      htmlElements.millisecond.innerText = `0${millisecond}`;
+    }
+    htmlElements.second.innerText = second < 10 ? `0${second}` : second;
+   
+
+    if (second > 59) {
+      minute++;
+      htmlElements.minute.innerText = `0${minute}`;
+      second = 0;
+      htmlElements.second.innerText = `0${second}`;
+    }
+    htmlElements.minute.innerText = minute < 10 ? `0${minute}` : minute;
+   
+
+    if (minute > 59) {
+      hour++;
+      htmlElements.hour.innerText = `0${hour}`;
+      minute = 0;
+      htmlElements.minute.innerText = `0${minute}`;
+    }
+    htmlElements.hour.innerText = hour < 10 ? `0${hour}` : hour;
+  }
